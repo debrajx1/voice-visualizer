@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice Visualizer</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/themes.css" />
+</head>
+<body>
+  <div class="controls">
+    <button id="startBtn">🎤 Start</button>
+    <button id="stopBtn" disabled>🔇 Stop</button>
+    <select id="themeSelector">
+      <option value="rainbow">🌈 Rainbow</option>
+      <option value="neon">🟢 Neon</option>
+      <option value="pastel">🩵 Pastel</option>
+      <option value="cosmic">🌌 Cosmic</option>
+      <option value="ocean">🌊 Ocean</option>
+      <option value="sunset">🌅 Sunset</option>
+      <option value="cyberpunk">💻 Cyberpunk</option>
+      <option value="forest">🌲 Forest</option>
+      <option value="minimalist">⚪ Minimalist</option>
+      <option value="electric">⚡ Electric</option>
+      <option value="ice">❄️ Ice</option>
+      <option value="lunar">🌙 Lunar</option>
+      <option value="autumn">🍁 Autumn</option>
+      <option value="retro">🎮 Retro</option>
+      <option value="neonCity">🌆 Neon City</option>
+      <option value="vintage">📸 Vintage</option>
+    </select>
+  </div>
+  <canvas id="waveform"></canvas>
+  <footer>🎧 Made with ❤️ by Mephisto X <button id="screenshotBtn">📸 Save</button></footer>
+
+  <script type="module" src="scripts/app.js"></script>
+</body>
+</html>

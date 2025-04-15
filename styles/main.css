@@ -1,0 +1,80 @@
+/* Base styles */
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at center, #0d0d0d, #000);
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Fullscreen Canvas */
+canvas {
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  background-color: transparent;
+  z-index: 1;
+}
+
+/* Controls container */
+.controls {
+  position: absolute;
+  top: 20px;
+  z-index: 10;
+  background: rgba(30, 30, 30, 0.65);
+  padding: 14px 28px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Button + Select styling */
+button, select {
+  padding: 10px 18px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  margin: 0 4px;
+  cursor: pointer;
+  background: #222;
+  color: #fff;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+button:hover, select:hover {
+  background: #444;
+  transform: scale(1.06);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Footer styling */
+footer {
+  position: absolute;
+  bottom: 15px;
+  z-index: 10;
+  color: #bbb;
+  font-size: 0.9rem;
+  font-weight: 400;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+}
+

@@ -1,0 +1,118 @@
+/* General canvas styling for smoother visuals */
+canvas {
+  transition: background 0.5s ease-in-out;
+  border-radius: 12px;
+}
+
+/* --- Rainbow --- */
+body.rainbow canvas {
+  background: linear-gradient(135deg, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #6600cc, #ff0066);
+  background-size: 400% 400%;
+  animation: rainbowAnimation 10s ease infinite;
+}
+
+/* --- Neon --- */
+body.neon canvas {
+  background: radial-gradient(circle, #0ff, #000);
+  animation: neonAnimation 8s ease-in-out infinite;
+}
+
+/* --- Pastel --- */
+body.pastel canvas {
+  background: linear-gradient(135deg, #fdf6f0, #f6f2ef, #e9e3df);
+  animation: pastelAnimation 15s ease infinite;
+}
+
+/* --- Cosmic --- */
+body.cosmic canvas {
+  background: radial-gradient(circle, #0b0033, #1a1a2e, #3a0ca3, #4361ee);
+}
+
+/* --- Ocean --- */
+body.ocean canvas {
+  background: linear-gradient(120deg, #0077be, #00c6fb, #005082);
+}
+
+/* --- Sunset --- */
+body.sunset canvas {
+  background: linear-gradient(135deg, #ff5e62, #ff9966, #ffc371);
+}
+
+/* --- Cyberpunk --- */
+body.cyberpunk canvas {
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+}
+
+/* --- Forest --- */
+body.forest canvas {
+  background: linear-gradient(135deg, #004d00, #007a33, #4caf50);
+}
+
+/* --- Minimalist --- */
+body.minimalist canvas {
+  background: #f0f0f0;
+}
+
+/* --- Electric --- */
+body.electric canvas {
+  background: linear-gradient(135deg, #00f7ff, #1b1b1b, #00ff88);
+  animation: electricFlash 6s linear infinite;
+}
+
+/* --- Ice --- */
+body.ice canvas {
+  background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea);
+}
+
+/* --- Lunar --- */
+body.lunar canvas {
+  background: radial-gradient(circle at center, #111, #222, #444);
+}
+
+/* --- Autumn --- */
+body.autumn canvas {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b, #ffcc70);
+}
+
+/* --- Retro --- */
+body.retro canvas {
+  background: linear-gradient(135deg, #f72585, #7209b7, #3a0ca3, #4361ee);
+}
+
+/* --- Neon City --- */
+body.neonCity canvas {
+  background: linear-gradient(135deg, #ff00cc, #333399);
+  animation: neonCityGlow 10s ease-in-out infinite;
+}
+
+/* --- Vintage --- */
+body.vintage canvas {
+  background: linear-gradient(135deg, #d6a77a, #c4b7a6, #9b8c7b);
+}
+
+/* --- Keyframe Animations --- */
+@keyframes rainbowAnimation {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes neonAnimation {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5); }
+}
+
+@keyframes pastelAnimation {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes electricFlash {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+@keyframes neonCityGlow {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.8); }
+  100% { filter: brightness(1); }
+}
