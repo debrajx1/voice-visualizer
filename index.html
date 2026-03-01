@@ -3,35 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voice Visualizer</title>
+  <title>Voice Visualizer — Real-Time Audio Visualization</title>
+  <meta name="description" content="Transform your voice into stunning real-time audio visualizations. Features circular, bar, wave, and particle modes with 16 beautiful themes." />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta property="og:title" content="Voice Visualizer" />
+  <meta property="og:description" content="Real-time audio visualization with multiple rendering modes and beautiful themes." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles/main.css" />
   <link rel="stylesheet" href="styles/themes.css" />
 </head>
 <body>
-  <div class="controls">
-    <button id="startBtn">🎤 Start</button>
-    <button id="stopBtn" disabled>🔇 Stop</button>
-    <select id="themeSelector">
-      <option value="rainbow">🌈 Rainbow</option>
-      <option value="neon">🟢 Neon</option>
-      <option value="pastel">🩵 Pastel</option>
-      <option value="cosmic">🌌 Cosmic</option>
-      <option value="ocean">🌊 Ocean</option>
-      <option value="sunset">🌅 Sunset</option>
-      <option value="cyberpunk">💻 Cyberpunk</option>
-      <option value="forest">🌲 Forest</option>
-      <option value="minimalist">⚪ Minimalist</option>
-      <option value="electric">⚡ Electric</option>
-      <option value="ice">❄️ Ice</option>
-      <option value="lunar">🌙 Lunar</option>
-      <option value="autumn">🍁 Autumn</option>
-      <option value="retro">🎮 Retro</option>
-      <option value="neonCity">🌆 Neon City</option>
-      <option value="vintage">📸 Vintage</option>
-    </select>
+
+  <!-- Permission Overlay -->
+  <div id="permissionOverlay" class="overlay">
+    <div class="overlay__content">
+      <div class="overlay__icon">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+      </div>
+      <h1 class="overlay__title">Voice Visualizer</h1>
+      <p class="overlay__subtitle">Transform your voice into stunning visual art</p>
+      <button id="permissionBtn" class="btn btn--primary btn--glow" aria-label="Start microphone and begin visualization">
+        <span class="btn__icon">🎤</span>
+        <span>Allow Microphone</span>
+      </button>
+      <p class="overlay__hint">Click to grant microphone access and start visualizing</p>
+    </div>
   </div>
-  <canvas id="waveform"></canvas>
-  <footer>🎧 Made with ❤️ by Mephisto X <button id="screenshotBtn">📸 Save</button></footer>
+
+  <!-- Main Application -->
+  <div id="app" class="app" style="display: none;">
+
+    <!-- Header / Controls -->
+    <header class="header" id="header">
+      <div class="header__brand">
+        <h1 class="header__title">
+          <span class="header__logo-icon">◉</span>
+          Voice Visualizer
+        </h1>
+      </div>
+
+      <nav class="header__controls" aria-label="Visualization controls">
+        <!-- Visualization Mode -->
+        <div class="control-group">
+          <label class="control-group__label" for="modeSelector">Mode</label>
+          <select id="modeSelector" class="select" aria-label="Visualization mode">
+            <option value="circular">◎ Circular</option>
+            <option value="bars">▮ Bars</option>
+            <option value="wave">〰 Wave</option>
+            <option value="particles">✦ Particles</option>
+          </select>
+        </div>
+
+        <!-- Theme Selector -->
+        <div class="control-group">
+          <label class="control-group__label" for="themeSelector">Theme</label>
+          <select id="themeSelector" class="select" aria-label="Color theme">
+            <option value="rainbow">🌈 Rainbow</option>
+            <option value="neon">🟢 Neon</option>
+            <option value="pastel">🩵 Pastel</option>
+            <option value="cosmic">🌌 Cosmic</option>
+            <option value="ocean">🌊 Ocean</option>
+            <option value="sunset">🌅 Sunset</option>
+            <option value="cyberpunk">💻 Cyberpunk</option>
+            <option value="forest">🌲 Forest</option>
+            <option value="minimalist">⚪ Minimalist</option>
+            <option value="electric">⚡ Electric</option>
+            <option value="ice">❄️ Ice</option>
+            <option value="lunar">🌙 Lunar</option>
+            <option value="autumn">🍁 Autumn</option>
+            <option value="retro">🎮 Retro</option>
+            <option value="neonCity">🌆 Neon City</option>
+            <option value="vintage">📸 Vintage</option>
+          </select>
+        </div>
+
+        <!-- Sensitivity Slider -->
+        <div class="control-group">
+          <label class="control-group__label" for="sensitivitySlider">Sensitivity</label>
+          <input type="range" id="sensitivitySlider" class="slider" min="0.5" max="3" step="0.1" value="1.5" aria-label="Microphone sensitivity" />
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="control-group control-group--actions">
+          <button id="stopBtn" class="btn btn--stop" disabled aria-label="Stop visualization">
+            <span>⏹ Stop</span>
+          </button>
+          <button id="startBtn" class="btn btn--start" aria-label="Start visualization">
+            <span>▶ Start</span>
+          </button>
+          <button id="screenshotBtn" class="btn btn--icon" aria-label="Save screenshot">
+            📸
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Real-time Stats Panel -->
+    <aside class="stats-panel" id="statsPanel" aria-label="Audio statistics">
+      <div class="stat" id="statDb">
+        <span class="stat__label">dB Level</span>
+        <span class="stat__value" id="dbValue">—</span>
+      </div>
+      <div class="stat" id="statFreq">
+        <span class="stat__label">Frequency</span>
+        <span class="stat__value" id="freqValue">—</span>
+      </div>
+      <div class="stat" id="statPeak">
+        <span class="stat__label">Peak</span>
+        <div class="stat__bar">
+          <div class="stat__bar-fill" id="peakBar"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Canvas -->
+    <canvas id="waveform" aria-label="Audio visualization canvas"></canvas>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer__credit">🎧 Made with ❤️ by Mephisto X</span>
+      <div class="footer__shortcuts">
+        <kbd>Space</kbd> Toggle &nbsp;
+        <kbd>T</kbd> Theme &nbsp;
+        <kbd>M</kbd> Mode
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
   <script type="module" src="scripts/app.js"></script>
 </body>

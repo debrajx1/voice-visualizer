@@ -1,118 +1,205 @@
-/* General canvas styling for smoother visuals */
-canvas {
-  transition: background 0.5s ease-in-out;
-  border-radius: 12px;
+/* ============================================================
+   Voice Visualizer — Theme System
+   Each theme sets CSS custom properties for colors used by
+   the JS canvas renderers, plus background gradients.
+   ============================================================ */
+
+/* --- Theme Variables (defaults → used by JS) --- */
+:root {
+  --theme-bar-h: 270;
+  --theme-bar-s: 80%;
+  --theme-bar-l: 60%;
+  --theme-glow: rgba(108, 92, 231, 0.4);
+  --theme-particle: #a29bfe;
+  --theme-bg-start: #0a0a0f;
+  --theme-bg-end: #0a0a0f;
 }
 
 /* --- Rainbow --- */
-body.rainbow canvas {
-  background: linear-gradient(135deg, #ff0000, #ff9900, #ffff00, #33cc33, #3399ff, #6600cc, #ff0066);
+body.rainbow {
+  --theme-bar-h: 0;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 60%;
+  --theme-glow: rgba(255, 100, 100, 0.4);
+  --theme-particle: #ff6b6b;
+  --theme-bg-start: #1a0a1e;
+  --theme-bg-end: #0d1a2e;
+  background: linear-gradient(135deg, #1a0a1e, #0d1a2e, #1a0f0a);
   background-size: 400% 400%;
-  animation: rainbowAnimation 10s ease infinite;
+  animation: themeGradientShift 12s ease infinite;
 }
 
 /* --- Neon --- */
-body.neon canvas {
-  background: radial-gradient(circle, #0ff, #000);
-  animation: neonAnimation 8s ease-in-out infinite;
+body.neon {
+  --theme-bar-h: 160;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 50%;
+  --theme-glow: rgba(0, 255, 200, 0.5);
+  --theme-particle: #00ffcc;
+  background: radial-gradient(ellipse at center, #001a1a, #000d0d, #000);
 }
 
 /* --- Pastel --- */
-body.pastel canvas {
-  background: linear-gradient(135deg, #fdf6f0, #f6f2ef, #e9e3df);
-  animation: pastelAnimation 15s ease infinite;
+body.pastel {
+  --theme-bar-h: 320;
+  --theme-bar-s: 50%;
+  --theme-bar-l: 78%;
+  --theme-glow: rgba(255, 180, 220, 0.3);
+  --theme-particle: #ffb4dc;
+  background: linear-gradient(135deg, #1e1520, #151520, #141420);
 }
 
 /* --- Cosmic --- */
-body.cosmic canvas {
-  background: radial-gradient(circle, #0b0033, #1a1a2e, #3a0ca3, #4361ee);
+body.cosmic {
+  --theme-bar-h: 250;
+  --theme-bar-s: 90%;
+  --theme-bar-l: 65%;
+  --theme-glow: rgba(67, 97, 238, 0.5);
+  --theme-particle: #4361ee;
+  background: radial-gradient(ellipse at 30% 50%, #0b0033, #1a1a2e, #0d0d1a);
+  background-size: 200% 200%;
+  animation: themeGradientShift 15s ease infinite;
 }
 
 /* --- Ocean --- */
-body.ocean canvas {
-  background: linear-gradient(120deg, #0077be, #00c6fb, #005082);
+body.ocean {
+  --theme-bar-h: 200;
+  --theme-bar-s: 90%;
+  --theme-bar-l: 55%;
+  --theme-glow: rgba(0, 150, 255, 0.4);
+  --theme-particle: #00c6fb;
+  background: linear-gradient(120deg, #001428, #002040, #001832);
 }
 
 /* --- Sunset --- */
-body.sunset canvas {
-  background: linear-gradient(135deg, #ff5e62, #ff9966, #ffc371);
+body.sunset {
+  --theme-bar-h: 20;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 65%;
+  --theme-glow: rgba(255, 100, 60, 0.4);
+  --theme-particle: #ff5e62;
+  background: linear-gradient(135deg, #1a0a08, #1e1208, #1a0f0a);
 }
 
 /* --- Cyberpunk --- */
-body.cyberpunk canvas {
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
+body.cyberpunk {
+  --theme-bar-h: 310;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 55%;
+  --theme-glow: rgba(255, 0, 200, 0.5);
+  --theme-particle: #ff00cc;
+  background: linear-gradient(135deg, #0a000f, #10001a, #050010);
+  background-size: 300% 300%;
+  animation: themeGradientShift 10s ease infinite;
 }
 
 /* --- Forest --- */
-body.forest canvas {
-  background: linear-gradient(135deg, #004d00, #007a33, #4caf50);
+body.forest {
+  --theme-bar-h: 130;
+  --theme-bar-s: 70%;
+  --theme-bar-l: 45%;
+  --theme-glow: rgba(76, 175, 80, 0.4);
+  --theme-particle: #4caf50;
+  background: linear-gradient(135deg, #040d04, #061206, #0a1a0a);
 }
 
 /* --- Minimalist --- */
-body.minimalist canvas {
-  background: #f0f0f0;
+body.minimalist {
+  --theme-bar-h: 0;
+  --theme-bar-s: 0%;
+  --theme-bar-l: 70%;
+  --theme-glow: rgba(200, 200, 200, 0.2);
+  --theme-particle: #cccccc;
+  background: #0d0d0d;
 }
 
 /* --- Electric --- */
-body.electric canvas {
-  background: linear-gradient(135deg, #00f7ff, #1b1b1b, #00ff88);
-  animation: electricFlash 6s linear infinite;
+body.electric {
+  --theme-bar-h: 180;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 50%;
+  --theme-glow: rgba(0, 247, 255, 0.5);
+  --theme-particle: #00f7ff;
+  background: linear-gradient(135deg, #001015, #000a0f, #001510);
+  background-size: 300% 300%;
+  animation: themeGradientShift 6s linear infinite;
 }
 
 /* --- Ice --- */
-body.ice canvas {
-  background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea);
+body.ice {
+  --theme-bar-h: 190;
+  --theme-bar-s: 60%;
+  --theme-bar-l: 75%;
+  --theme-glow: rgba(128, 222, 234, 0.3);
+  --theme-particle: #80deea;
+  background: linear-gradient(135deg, #08141a, #0a1820, #0c1e28);
 }
 
 /* --- Lunar --- */
-body.lunar canvas {
-  background: radial-gradient(circle at center, #111, #222, #444);
+body.lunar {
+  --theme-bar-h: 0;
+  --theme-bar-s: 0%;
+  --theme-bar-l: 80%;
+  --theme-glow: rgba(255, 255, 255, 0.15);
+  --theme-particle: #e0e0e0;
+  background: radial-gradient(circle at center, #0a0a0a, #050505, #000);
 }
 
 /* --- Autumn --- */
-body.autumn canvas {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b, #ffcc70);
+body.autumn {
+  --theme-bar-h: 25;
+  --theme-bar-s: 85%;
+  --theme-bar-l: 60%;
+  --theme-glow: rgba(255, 126, 95, 0.4);
+  --theme-particle: #ff7e5f;
+  background: linear-gradient(135deg, #1a0f08, #1e1408, #1a100a);
 }
 
 /* --- Retro --- */
-body.retro canvas {
-  background: linear-gradient(135deg, #f72585, #7209b7, #3a0ca3, #4361ee);
+body.retro {
+  --theme-bar-h: 290;
+  --theme-bar-s: 90%;
+  --theme-bar-l: 55%;
+  --theme-glow: rgba(247, 37, 133, 0.4);
+  --theme-particle: #f72585;
+  background: linear-gradient(135deg, #0f0520, #0a0318, #120828);
+  background-size: 300% 300%;
+  animation: themeGradientShift 14s ease infinite;
 }
 
 /* --- Neon City --- */
-body.neonCity canvas {
-  background: linear-gradient(135deg, #ff00cc, #333399);
-  animation: neonCityGlow 10s ease-in-out infinite;
+body.neonCity {
+  --theme-bar-h: 290;
+  --theme-bar-s: 100%;
+  --theme-bar-l: 50%;
+  --theme-glow: rgba(255, 0, 204, 0.5);
+  --theme-particle: #ff00cc;
+  background: linear-gradient(135deg, #0a0015, #050020, #100025);
+  background-size: 300% 300%;
+  animation: themeGradientShift 10s ease-in-out infinite;
 }
 
 /* --- Vintage --- */
-body.vintage canvas {
-  background: linear-gradient(135deg, #d6a77a, #c4b7a6, #9b8c7b);
+body.vintage {
+  --theme-bar-h: 30;
+  --theme-bar-s: 50%;
+  --theme-bar-l: 65%;
+  --theme-glow: rgba(214, 167, 122, 0.3);
+  --theme-particle: #d6a77a;
+  background: linear-gradient(135deg, #121008, #0e0d08, #100e0a);
 }
 
-/* --- Keyframe Animations --- */
-@keyframes rainbowAnimation {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+/* --- Gradient Animation --- */
+@keyframes themeGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
 
-@keyframes neonAnimation {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.5); }
-}
+  50% {
+    background-position: 100% 50%;
+  }
 
-@keyframes pastelAnimation {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes electricFlash {
-  0%, 100% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-}
-
-@keyframes neonCityGlow {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.8); }
-  100% { filter: brightness(1); }
+  100% {
+    background-position: 0% 50%;
+  }
 }
